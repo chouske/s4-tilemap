@@ -35,19 +35,28 @@ const selectHeight = selectCanvas.height / numSelectables;
 
 //creating the tilemap nested array
 let tilemap: HTMLImageElement[][] = new Array(numTiles);
-
+let srclist: string[] = new Array(7);
+for(let i = 0; i < 7; i++){
+    srclist[i] = "/tile" + (i+1) + ".png";
+}
+//let srclist: HTMLImageElement[] = new Array(7);
+/*for(let i = 0; i < 7; i++){
+    srclist[i] = new Image();
+    srclist[i].src = "/tile" + (i+1) + ".png";
+    console.log(srclist[i].src);
+}*/
 for(let i = 0; i < numTiles; i++) {
     let row = new Array(numTiles);
     for (let j = 0; j < numTiles; j++) {
         row[j] = new Image();
-        row[j].src = "/tile1.png";
+        row[j].src = srclist[0];
     }
     tilemap[i] = row;
 }
 
 //track the selected tile
-let currentTile = "/tile1.png";
-
+//let currentTile = "/tile1.png";
+let currentTile = srclist[0];
 //draw the initial canvases
 redrawTilemap();
 drawSelectCanvas();
