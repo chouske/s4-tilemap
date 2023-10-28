@@ -35,28 +35,21 @@ const selectHeight = selectCanvas.height / numSelectables;
 
 //creating the tilemap nested array
 let tilemap: HTMLImageElement[][] = new Array(numTiles);
-let srclist: string[] = new Array(7);
+let imgList: HTMLImageElement[] = new Array(7);
 for(let i = 0; i < 7; i++){
-    srclist[i] = "/tile" + (i+1) + ".png";
+    imgList[i] = new Image();
+    imgList[i].src = "/tile" + (i+1) + ".png";
 }
-//let srclist: HTMLImageElement[] = new Array(7);
-/*for(let i = 0; i < 7; i++){
-    srclist[i] = new Image();
-    srclist[i].src = "/tile" + (i+1) + ".png";
-    console.log(srclist[i].src);
-}*/
 for(let i = 0; i < numTiles; i++) {
     let row = new Array(numTiles);
     for (let j = 0; j < numTiles; j++) {
-        row[j] = new Image();
-        row[j].src = srclist[0];
+        row[j] = imgList[0];
     }
     tilemap[i] = row;
 }
 
 //track the selected tile
-//let currentTile = "/tile1.png";
-let currentTile = srclist[0];
+let currentTile = imgList[0];
 //draw the initial canvases
 redrawTilemap();
 drawSelectCanvas();
@@ -88,7 +81,7 @@ gridCanvas.addEventListener("click", (e) => {
     const coordX = Math.trunc(e.offsetX / tileSize);
     const coordY = Math.trunc(e.offsetY / tileSize);
 
-    tilemap[coordX][coordY].src = currentTile;
+    tilemap[coordX][coordY] = currentTile;
     redrawTilemap();
 })
 
@@ -107,5 +100,5 @@ function drawSelectCanvas()
 
 selectCanvas.addEventListener("click", (e) => {
     const coordY = Math.trunc(e.offsetY / selectHeight);
-    currentTile = imageUrls[coordY];
+    currentTile = imgList[coordY];
 })
